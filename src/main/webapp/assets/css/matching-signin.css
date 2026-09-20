@@ -1,0 +1,33 @@
+/* Sign-in fields within the existing registration layout. */
+.matching-signin .signup-panel{align-items:center}
+.matching-signin .signup-card{max-width:620px}
+.matching-signin .signup-heading{margin-bottom:28px}
+.matching-signin .field{margin-bottom:22px}
+.matching-signin .field label{display:block;font-size:13px;font-weight:650;margin-bottom:9px}
+.matching-signin .field input{width:100%;min-width:0;height:50px;padding:12px 15px;border:1px solid #d7e3f1;border-radius:8px;background:#f8fbff;color:#19314c;font-size:16px}
+.matching-signin .field input:focus{outline:2px solid #77b3ff;outline-offset:2px;background:white}
+.matching-signin .field input::placeholder{color:#899bb2;font-size:14px}
+.matching-signin .password-field{position:relative}
+.matching-signin .password-field.has-toggle input{padding-right:70px}
+.matching-signin .password-field button{position:absolute;right:8px;top:8px;height:34px;padding:0 10px;border:0;border-radius:6px;background:#eaf3ff;color:#1269d6;font-size:12px;font-weight:650}
+.matching-signin .field-error{display:none;color:#b43749;font-size:12px;margin-top:7px}
+.matching-signin .field.has-error .field-error{display:block}
+.matching-signin .field.has-error input{border-color:#c44151}
+.matching-signin .signin-submit{display:flex;justify-content:center;align-items:center;gap:14px;width:100%;min-height:54px;border:0;border-radius:10px;background:#1677ff;color:white;font-size:16px;font-weight:700;cursor:pointer;margin-top:26px;box-shadow:0 10px 24px #1677ff20}
+.matching-signin .signin-submit:hover{background:#0865df}
+.matching-signin .signin-submit:disabled{opacity:.7;cursor:wait}
+.matching-signin .signup-prompt{margin-top:26px;padding-top:22px;border-top:1px solid #e5edf7;text-align:center;font-size:13px;color:#61758b}
+.matching-signin .signup-prompt a{font-weight:650}
+.matching-signin .support-note{font-size:12px;text-align:center;color:#6c809b;margin-top:17px}
+.matching-signin .back-home{display:block;text-align:center;font-size:13px;margin-top:20px}
+.matching-signin .notice{padding:13px 15px;margin-bottom:18px;border-radius:8px;font-size:13px;overflow-wrap:anywhere}
+.matching-signin .notice-error{background:#fff0f2;color:#993649;border:1px solid #efcad1}
+.matching-signin .notice-info{background:#eef6ff;color:#205a94;border:1px solid #d0e5fc}
+.matching-signin .notice-success{background:#eefaf3;color:#216a48;border:1px solid #c7e7d5}
+.matching-signin .spinner{width:16px;height:16px;border:2px solid #ffffff60;border-top-color:white;border-radius:50%;animation:signin-spin .7s linear infinite}
+.matching-signin [hidden]{display:none!important}
+.matching-signin .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.matching-signin button:focus-visible,.matching-signin a:focus-visible{outline:3px solid #186cda;outline-offset:3px}
+@keyframes signin-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.matching-signin .spinner{animation:none}}
+@media(max-width:575px){.matching-signin .signup-secure-badge{font-size:10px}.matching-signin .signup-heading h2{font-size:26px}}
