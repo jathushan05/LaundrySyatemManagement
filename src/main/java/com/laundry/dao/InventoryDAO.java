@@ -19,7 +19,7 @@ public class InventoryDAO {
     public List<InventoryItem> findAll(String search, String category, String status, boolean lowOnly) throws SQLException {
         List<InventoryItem> items = new ArrayList<>();
         String sql = "SELECT * FROM inventory_items WHERE (?='' OR inventory_code LIKE ? OR item_name LIKE ? OR supplier LIKE ?) " +
-                "AND (? IS NULL OR category=?) AND (? IS NULL OR status=?) AND (?=0 OR quantity<=reorder_level) ORDER BY item_name";
+                "AND (? IS NULL OR category=?) AND (? IS NULL OR status=?) AND (?=FALSE OR quantity<=reorder_level) ORDER BY item_name";
         String term = value(search);
         String categoryValue = value(category);
         String group = categoryValue.isEmpty() ? null : categoryValue;
@@ -55,7 +55,7 @@ public class InventoryDAO {
 
     public InventoryItem create(InventoryItem item) throws SQLException {
         String insert = "INSERT INTO inventory_items(inventory_code,item_name,category,quantity,unit,reorder_level,unit_price,supplier,status) VALUES(?,?,?,?,?,?,?,?,'ACTIVE')";
-        String updateCode = "UPDATE inventory_items SET inventory_code=?,last_updated=CURRENT_TIMESTAMP WHERE inventory_id=?";
+        String updateCode = "UPDATE inventory_items SET inventory_code=? WHERE inventory_id=?";
         try (Connection connection = DatabaseUtil.getConnection()) {
             connection.setAutoCommit(false);
             try {
@@ -93,7 +93,7 @@ public class InventoryDAO {
     }
 
     public void update(InventoryItem item) throws SQLException {
-        String sql = "UPDATE inventory_items SET item_name=?,category=?,unit=?,reorder_level=?,unit_price=?,supplier=?,status=?,last_updated=CURRENT_TIMESTAMP WHERE inventory_id=?";
+        String sql = "UPDATE inventory_items SET item_name=?,category=?,unit=?,reorder_level=?,unit_price=?,supplier=?,status=? WHERE inventory_id=?";
         try (Connection connection = DatabaseUtil.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, item.getItemName());
             statement.setString(2, item.getCategory());
@@ -108,7 +108,7 @@ public class InventoryDAO {
     }
 
     public void deactivate(long id) throws SQLException {
-        String sql = "UPDATE inventory_items SET status='INACTIVE',last_updated=CURRENT_TIMESTAMP WHERE inventory_id=?";
+        String sql = "UPDATE inventory_items SET status='INACTIVE' WHERE inventory_id=?";
         try (Connection connection = DatabaseUtil.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
             if (statement.executeUpdate() == 0) throw new SQLException("Inventory item not found.");
@@ -116,8 +116,8 @@ public class InventoryDAO {
     }
 
     public void recordTransaction(long inventoryId, Long orderId, String type, BigDecimal quantity, String notes, long userId) throws SQLException {
-        String lock = "SELECT quantity FROM inventory_items WITH (UPDLOCK,HOLDLOCK) WHERE inventory_id=? AND status='ACTIVE'";
-        String update = "UPDATE inventory_items SET quantity=?,last_updated=CURRENT_TIMESTAMP WHERE inventory_id=?";
+        String lock = "SELECT quantity FROM inventory_items WHERE inventory_id=? AND status='ACTIVE' FOR UPDATE";
+        String update = "UPDATE inventory_items SET quantity=? WHERE inventory_id=?";
         String insert = "INSERT INTO inventory_transactions(inventory_id,order_id,transaction_type,quantity,balance_after,notes,created_by) VALUES(?,?,?,?,?,?,?)";
         try (Connection connection = DatabaseUtil.getConnection()) {
             connection.setAutoCommit(false);
@@ -163,7 +163,7 @@ public class InventoryDAO {
     public List<InventoryTransaction> findTransactions(Long inventoryId) throws SQLException {
         List<InventoryTransaction> transactions = new ArrayList<>();
         String sql = "SELECT t.*,i.item_name FROM inventory_transactions t JOIN inventory_items i ON i.inventory_id=t.inventory_id " +
-                "WHERE (? IS NULL OR t.inventory_id=?) ORDER BY t.created_at DESC, t.transaction_id DESC OFFSET 0 ROWS FETCH NEXT 300 ROWS ONLY";
+                "WHERE (? IS NULL OR t.inventory_id=?) ORDER BY t.created_at DESC LIMIT 300";
         try (Connection connection = DatabaseUtil.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             if (inventoryId == null) statement.setNull(1, java.sql.Types.BIGINT); else statement.setLong(1, inventoryId);
             if (inventoryId == null) statement.setNull(2, java.sql.Types.BIGINT); else statement.setLong(2, inventoryId);
