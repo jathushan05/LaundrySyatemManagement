@@ -1,0 +1,30 @@
+/* Cart + check animations (dashboard "New order" button and order-created success). */
+.new-order-btn i { display:inline-block; }
+.new-order-btn:hover i, .new-order-btn:focus-visible i { animation:cartNudge .6s ease; }
+@keyframes cartNudge { 0%{transform:translateX(0)} 35%{transform:translateX(5px) rotate(-8deg)} 70%{transform:translateX(-2px) rotate(4deg)} 100%{transform:translateX(0)} }
+
+.order-anim { position:fixed; inset:0; z-index:3000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:rgba(244,247,251,0); backdrop-filter:blur(0); transition:background .25s ease, backdrop-filter .25s ease, opacity .3s ease; cursor:default; }
+.order-anim.play { background: rgb(50 58 80 / 0.92); backdrop-filter:blur(4px); }
+.order-anim.leaving { opacity:0; pointer-events:none; }
+.order-anim p { margin:6px 0 0; font-size:18px; font-weight:700; color:#213047; opacity:0; transform:translateY(6px); }
+.order-anim small { color: #af1414; font-size:13px; font-weight:600; opacity:0; transform:translateY(6px); }
+.order-anim.play p { animation:cartTextIn .35s ease .5s forwards; }
+.order-anim.play small { animation:cartTextIn .35s ease .65s forwards; }
+.order-anim .cart-anim-svg { overflow:visible; }
+.order-anim .cart-body, .order-anim .cart-badge, .order-anim .cart-ring, .order-anim .cart-wheel { transform-box:fill-box; transform-origin:center; }
+.order-anim .cart-body { transform:translateX(-90px); opacity:0; }
+.order-anim .cart-badge { transform:scale(0); }
+.order-anim .cart-ring { opacity:0; }
+.order-anim .cart-check { stroke-dasharray:1; stroke-dashoffset:1; }
+.order-anim.play .cart-body { animation:cartDriveIn .6s cubic-bezier(.2,.8,.3,1) forwards; }
+.order-anim.play .cart-wheel { animation:cartWheel .6s cubic-bezier(.2,.8,.3,1) forwards; }
+.order-anim.play .cart-badge { animation:cartBadgePop .4s cubic-bezier(.3,1.6,.5,1) .5s forwards; }
+.order-anim.play .cart-check { animation:cartCheckDraw .3s ease-out .75s forwards; }
+.order-anim.play .cart-ring { animation:cartRing .6s ease-out .55s forwards; }
+@keyframes cartDriveIn { from{transform:translateX(-90px);opacity:0} 25%{opacity:1} to{transform:translateX(0);opacity:1} }
+@keyframes cartWheel { to{transform:rotate(540deg)} }
+@keyframes cartBadgePop { from{transform:scale(0)} to{transform:scale(1)} }
+@keyframes cartCheckDraw { to{stroke-dashoffset:0} }
+@keyframes cartRing { 0%{opacity:.7;transform:scale(1)} 100%{opacity:0;transform:scale(1.9)} }
+@keyframes cartTextIn { to{opacity:1;transform:none} }
+@media (prefers-reduced-motion: reduce) { .new-order-btn:hover i, .new-order-btn:focus-visible i { animation:none; } .order-anim { display:none; } }
