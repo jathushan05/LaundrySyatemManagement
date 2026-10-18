@@ -1,0 +1,27 @@
+/* Registration uses the same photographic layout as the reference sign-in. */
+.signup-photo .brand{padding:0;gap:10px}
+.signup-photo .brand-mark{margin:0;box-shadow:none;flex-shrink:0}
+.signup-photo .stage-content{width:min(1200px,calc(100% - 64px));grid-template-columns:minmax(0,1fr) minmax(0,600px);gap:64px;padding-block:42px}
+.signup-photo .registration-card{padding:34px;min-width:0}
+.signup-photo .registration-card h1{font-size:30px}
+.signup-photo .signup-form-section{border:0;border-top:1px solid #e5edf4;background:transparent;border-radius:0;padding:16px 0 0;margin:0 0 22px;min-width:0}
+.signup-photo .signup-form-section legend{float:none;display:flex;align-items:center;gap:9px;width:auto;padding:0 8px 0 0;margin:0 0 12px;font-size:13px}
+.signup-photo .signup-form-section legend small{display:none}
+.signup-photo .section-number{display:grid;place-items:center;min-width:25px;width:25px;height:25px;background:#e9f3ff;color:#0875f5;border-radius:5px;font-size:12px}
+.signup-photo .login-field label{font-size:12px;margin-bottom:7px}
+.signup-photo .input-group{flex-wrap:wrap;min-width:0}
+.signup-photo .form-control{min-width:0;min-height:44px;background:#fbfcfe;border-color:#cdd9e5;font-size:14px;border-radius:5px}
+.signup-photo .input-group-text{background:#f5f9fd;border-color:#cdd9e5;color:#7a8ea6;padding-inline:10px}
+.signup-photo .password-toggle{border-color:#cdd9e5;padding-inline:10px;color:#426c9f}
+.signup-photo .password-assist{margin-top:14px}
+.signup-photo .password-assist-copy{font-size:10px;flex-wrap:wrap;gap:4px}
+.signup-photo .password-tips{display:none}
+.signup-photo .signup-consent-note{font-size:11px;margin:0 0 16px;color:#6f8197}
+.signup-photo .signup-submit{min-height:49px;border-radius:5px;font-size:15px;background: #f508a2;box-shadow:none}
+.signup-photo .signup-signin-link{font-size:13px;border-top:1px solid #e5edf4;padding-top:20px;margin:22px 0 0;text-align:center;color:#61758b}
+.signup-photo .signup-alert{font-size:13px}
+.signup-photo .welcome-copy>p:not(.eyebrow){max-width:370px}
+.signup-photo .eyebrow,.signup-photo h1,.signup-photo h2{letter-spacing:0}
+@media(max-width:1050px){.signup-photo .stage-content{gap:28px;grid-template-columns:minmax(0,1fr) minmax(0,520px)}.signup-photo .welcome-copy h2{font-size:36px}}
+@media(max-width:900px){.signup-photo .stage-content{grid-template-columns:minmax(0,580px);justify-content:center;gap:24px}.signup-photo .welcome-copy{text-align:center}.signup-photo .welcome-copy>p,.signup-photo .service-labels{display:none}.signup-photo .welcome-copy h2{font-size:27px;margin:0}.signup-photo .welcome-copy h2 br{display:none}.signup-photo .laundry-photo{background-size:auto 200%}}
+@media(max-width:575px){.signup-photo .stage-content{width:calc(100% - 28px);padding-block:26px}.signup-photo .registration-card{padding:25px 20px}.signup-photo .registration-card h1{font-size:26px}.signup-photo .form-control{font-size:16px}.signup-photo .intro{margin-bottom:22px}}
